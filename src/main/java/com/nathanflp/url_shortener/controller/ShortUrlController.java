@@ -24,7 +24,7 @@ public class ShortUrlController {
                 body(shortUrlService.shortenUrl(shortUrlRequest, httpServletRequest.getRequestURL().toString()) );
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Void> redirectFromShortenedUrl(@PathVariable("id") String id) {
         return ResponseEntity.
                 status(HttpStatus.FOUND).
