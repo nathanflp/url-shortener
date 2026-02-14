@@ -6,7 +6,7 @@ import com.nathanflp.url_shortener.utils.*;
 
 public class ShortUrlDTOFactory {
 
-    public static ShortUrlResponse toResponse (String fullShortenUrl, ShortUrl shortUrl){
+    public static ShortUrlResponse toDefaultResponse(String fullShortenUrl, ShortUrl shortUrl){
         return new ShortUrlResponse(fullShortenUrl,
                 DateFormatter.formatInstant(shortUrl.getExpiresAt())
         );

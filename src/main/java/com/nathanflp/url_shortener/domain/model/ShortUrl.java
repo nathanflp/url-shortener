@@ -2,6 +2,7 @@ package com.nathanflp.url_shortener.domain.model;
 
 import jakarta.persistence.*;
 
+import javax.validation.constraints.*;
 import java.time.*;
 import java.time.temporal.*;
 
@@ -12,16 +13,16 @@ public class ShortUrl {
     @Id
     private String id;
 
-    @Column(name = "original_url")
+    @Column(name = "original_url", nullable = false)
     private String originalUrl;
 
     @Column(name = "created_at", updatable = false, nullable = false)
     private Instant createdAt;
 
-    @Column(name = "expires_at")
+    @Column(name = "expires_at", nullable = false)
     private Instant expiresAt;
 
-    @Column(name = "click_count")
+    @Column(name = "click_count", nullable = false)
     private Integer clickCount;
 
     @Column(name = "last_time_clicked")
