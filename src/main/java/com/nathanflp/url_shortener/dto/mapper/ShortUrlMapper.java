@@ -1,10 +1,10 @@
-package com.nathanflp.url_shortener.dto.factory;
+package com.nathanflp.url_shortener.dto.mapper;
 
 import com.nathanflp.url_shortener.domain.model.*;
 import com.nathanflp.url_shortener.dto.response.*;
 import com.nathanflp.url_shortener.utils.*;
 
-public class ShortUrlDTOFactory {
+public class ShortUrlMapper {
 
     public static ShortUrlResponse toDefaultResponse(String fullShortenUrl, ShortUrl shortUrl){
         return new ShortUrlResponse(fullShortenUrl,

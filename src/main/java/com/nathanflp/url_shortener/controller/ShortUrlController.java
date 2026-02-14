@@ -1,7 +1,7 @@
 package com.nathanflp.url_shortener.controller;
 
 import com.nathanflp.url_shortener.domain.model.*;
-import com.nathanflp.url_shortener.dto.factory.*;
+import com.nathanflp.url_shortener.dto.mapper.*;
 import com.nathanflp.url_shortener.dto.request.*;
 import com.nathanflp.url_shortener.dto.response.*;
 import com.nathanflp.url_shortener.service.*;
@@ -33,7 +33,7 @@ public class ShortUrlController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ShortUrlDTOFactory.toDefaultResponse(fullShortenUrl, shortUrlEntity));
+                .body(ShortUrlMapper.toDefaultResponse(fullShortenUrl, shortUrlEntity));
     }
 
     @GetMapping("{id}")
@@ -55,7 +55,7 @@ public class ShortUrlController {
     public ResponseEntity<ShortUrlMetricsResponse> metricsFromShortenedUrl(@PathVariable("id") String id) {
         ShortUrl shortUrlEntity = shortUrlService.getShortUrlById(id);
         return ResponseEntity.status(HttpStatus.FOUND)
-                .body(ShortUrlDTOFactory.toMetricsResponse(shortUrlEntity));
+                .body(ShortUrlMapper.toMetricsResponse(shortUrlEntity));
     }
 
 }
