@@ -2,7 +2,6 @@ package com.nathanflp.url_shortener.domain.model;
 
 import jakarta.persistence.*;
 
-import javax.validation.constraints.*;
 import java.time.*;
 import java.time.temporal.*;
 
