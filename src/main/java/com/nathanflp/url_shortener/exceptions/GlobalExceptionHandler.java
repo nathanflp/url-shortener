@@ -16,4 +16,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiResponse);
     }
 
+    @ExceptionHandler(UrlExpiredException.class)
+        public ResponseEntity<DefaultApiExceptionResponse> urlExpiredHandler(UrlExpiredException exception) {
+            DefaultApiExceptionResponse apiResponse = new DefaultApiExceptionResponse(exception.getMessage(), HttpStatus.GONE, Instant.now());
+            return ResponseEntity.status(HttpStatus.GONE).body(apiResponse);
+        }
+
 }

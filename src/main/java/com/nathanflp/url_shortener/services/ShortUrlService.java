@@ -18,6 +18,8 @@ public class ShortUrlService {
     private final LinkIdGenerator linkIdGenerator;
     @Value("${default.expiration.days}")
     private int expirationDays;
+    @Value("${additional.days}")
+    private int additionalDays;
     private final Logger logger = LoggerFactory.getLogger(ShortUrlService.class);
 
     public ShortUrlService(ShortUrlRepository shortUrlRepository, LinkIdGenerator linkIdGenerator) {
@@ -41,7 +43,7 @@ public class ShortUrlService {
 
         Optional<ShortUrl> existingShortUrl = shortUrlRepository.findByOriginalUrl(shortUrlRequest.originalUrl());
 
-        if(existingShortUrl.isPresent()){
+        if(existingShortUrl.isPresent() && !existingShortUrl.get().isExpired()){
             logger.info("URL already has a shortened version, returning existing short URL");
             return existingShortUrl.get();
         }
@@ -69,6 +71,11 @@ public class ShortUrlService {
         logger.info("Redirect request received for id: {}", id);
 
         ShortUrl shortUrl = this.getShortUrlById(id);
+
+        if(shortUrl.isExpired()){
+            throw new UrlExpiredException("URL with id: " + id + " is expired since: " + shortUrl.getExpiresAt());
+        }
+
         updateAccessedUrl(shortUrl);
 
         logger.info("Redirecting to original URL for id: {}", id);
@@ -78,7 +85,7 @@ public class ShortUrlService {
 
     public void updateAccessedUrl(ShortUrl shortUrlEntity){
         logger.debug("Updating access info for id: {}", shortUrlEntity.getId());
-        shortUrlEntity.updateAccessedInfo(expirationDays);
+        shortUrlEntity.updateAccessedInfo(additionalDays);
         shortUrlRepository.save(shortUrlEntity);
     }
 
