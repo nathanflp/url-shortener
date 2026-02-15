@@ -28,12 +28,11 @@ public class ShortUrlService {
     }
 
     public ShortUrl getShortUrlById(String id) {
-        logger.debug("Searching Url with id: {}", id);
+        logger.info("Searching Url with id: {}", id);
 
         return shortUrlRepository.findById(id)
                 .orElseThrow(() ->
                 {
-                    logger.warn("Url with id: {} not found", id);
                     return new UrlNotFoundException("URL not found with id: " + id);
                 });
     }
@@ -84,7 +83,7 @@ public class ShortUrlService {
     }
 
     public void updateAccessedUrl(ShortUrl shortUrlEntity){
-        logger.debug("Updating access info for id: {}", shortUrlEntity.getId());
+        logger.info("Updating access info for id: {}", shortUrlEntity.getId());
         shortUrlEntity.updateAccessedInfo(additionalDays);
         shortUrlRepository.save(shortUrlEntity);
     }
