@@ -8,7 +8,7 @@ import org.springframework.web.servlet.mvc.method.annotation.*;
 
 import java.time.*;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UrlNotFoundException.class)
