@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.*;
 import java.time.temporal.*;
+import java.util.*;
 
 @Entity
 @Table(name = "short_urls")
@@ -75,15 +76,15 @@ public class ShortUrl {
         return lastTimeClicked;
     }
 
-    public void updateClickCount() {
+    private void updateClickCount() {
         this.clickCount++;
     }
 
-    public void updateLastTimeClicked() {
+    private void updateLastTimeClicked() {
         this.lastTimeClicked = Instant.now();
     }
 
-    public void updateExpiresAt(int days) {
+    private void updateExpiresAt(int days) {
             this.expiresAt = this.expiresAt.plus(days, ChronoUnit.DAYS);
         }
 
@@ -95,6 +96,18 @@ public class ShortUrl {
 
     public boolean isExpired() {
         return Instant.now().isAfter(this.expiresAt);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ShortUrl shortUrl = (ShortUrl) o;
+        return Objects.equals(id, shortUrl.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 
     @Override
