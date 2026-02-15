@@ -31,10 +31,7 @@ public class ShortUrlService {
         logger.info("Searching Url with id: {}", id);
 
         return shortUrlRepository.findById(id)
-                .orElseThrow(() ->
-                {
-                    return new UrlNotFoundException("URL not found with id: " + id);
-                });
+                .orElseThrow(() -> new UrlNotFoundException("URL not found for id: " + id) );
     }
 
     public ShortUrl shortenUrl(ShortUrlRequest shortUrlRequest) {
@@ -61,7 +58,7 @@ public class ShortUrlService {
         ShortUrl shortUrl = ShortUrl.createShortUrl(shortenUrlId, shortUrlRequest.originalUrl(), expirationDays);
         shortUrlRepository.save(shortUrl);
 
-        logger.info("Short URL created successfully with id: {}", shortenUrlId);
+        logger.info("Short URL created successfully for id: {}", shortenUrlId);
 
         return shortUrl;
     }
