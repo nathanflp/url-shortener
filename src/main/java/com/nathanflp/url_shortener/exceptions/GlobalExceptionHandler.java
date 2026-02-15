@@ -1,5 +1,6 @@
 package com.nathanflp.url_shortener.exceptions;
 
+import com.nathanflp.url_shortener.dtos.response.*;
 import com.nathanflp.url_shortener.exceptions.shortUrlExceptions.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

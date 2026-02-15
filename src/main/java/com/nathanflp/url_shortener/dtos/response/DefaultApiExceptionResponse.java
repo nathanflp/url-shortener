@@ -1,4 +1,4 @@
-package com.nathanflp.url_shortener.exceptions;
+package com.nathanflp.url_shortener.dtos.response;
 
 import com.nathanflp.url_shortener.utils.*;
 import org.springframework.http.*;
