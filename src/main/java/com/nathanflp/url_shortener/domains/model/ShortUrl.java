@@ -22,7 +22,7 @@ public class ShortUrl {
     private Instant expiresAt;
 
     @Column(name = "click_count", nullable = false)
-    private Integer clickCount;
+    private int clickCount;
 
     @Column(name = "last_time_clicked")
     private Instant lastTimeClicked;
@@ -55,48 +55,24 @@ public class ShortUrl {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getOriginalUrl() {
         return originalUrl;
-    }
-
-    public void setOriginalUrl(String originalUrl) {
-        this.originalUrl = originalUrl;
     }
 
     public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Instant getExpiresAt() {
         return expiresAt;
     }
 
-    public void setExpiresAt(Instant expiresAt) {
-        this.expiresAt = expiresAt;
-    }
-
-    public Integer getClickCount() {
+    public int getClickCount() {
         return clickCount;
-    }
-
-    public void setClickCount(Integer clickCount) {
-        this.clickCount = clickCount;
     }
 
     public Instant getLastTimeClicked() {
         return lastTimeClicked;
-    }
-
-    public void setLastTimeClicked(Instant lastTimeClicked) {
-        this.lastTimeClicked = lastTimeClicked;
     }
 
     public void updateClickCount() {
@@ -115,6 +91,10 @@ public class ShortUrl {
         updateClickCount();
         updateLastTimeClicked();
         updateExpiresAt(expirationDays);
+    }
+
+    public boolean isExpired() {
+        return Instant.now().isAfter(this.expiresAt);
     }
 
     @Override
