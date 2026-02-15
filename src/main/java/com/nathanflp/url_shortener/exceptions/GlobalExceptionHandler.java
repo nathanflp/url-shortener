@@ -12,13 +12,13 @@ import java.time.*;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UrlNotFoundException.class)
-    public ResponseEntity<DefaultApiExceptionResponse> urlNotFoundHandler(UrlNotFoundException exception) {
+    public ResponseEntity<?> urlNotFoundHandler(UrlNotFoundException exception) {
         DefaultApiExceptionResponse apiResponse = new DefaultApiExceptionResponse(exception.getMessage(), HttpStatus.NOT_FOUND, Instant.now());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiResponse);
     }
 
     @ExceptionHandler(UrlExpiredException.class)
-        public ResponseEntity<DefaultApiExceptionResponse> urlExpiredHandler(UrlExpiredException exception) {
+        public ResponseEntity<?> urlExpiredHandler(UrlExpiredException exception) {
             DefaultApiExceptionResponse apiResponse = new DefaultApiExceptionResponse(exception.getMessage(), HttpStatus.GONE, Instant.now());
             return ResponseEntity.status(HttpStatus.GONE).body(apiResponse);
         }
