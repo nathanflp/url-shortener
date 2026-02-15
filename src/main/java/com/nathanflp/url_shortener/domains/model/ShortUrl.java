@@ -1,4 +1,4 @@
-package com.nathanflp.url_shortener.domain.model;
+package com.nathanflp.url_shortener.domains.model;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.time.*;
 import java.time.temporal.*;
 
 @Entity
-@Table(name = "urls")
+@Table(name = "short_urls")
 public class ShortUrl {
 
     @Id
@@ -116,4 +116,17 @@ public class ShortUrl {
         updateLastTimeClicked();
         updateExpiresAt(expirationDays);
     }
+
+    @Override
+    public String toString() {
+        return "ShortUrl{" +
+                "id='" + id + '\'' +
+                ", originalUrl='" + originalUrl + '\'' +
+                ", createdAt=" + createdAt +
+                ", expiresAt=" + expiresAt +
+                ", clickCount=" + clickCount +
+                ", lastTimeClicked=" + lastTimeClicked +
+                '}';
+    }
+
 }
