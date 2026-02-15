@@ -6,7 +6,7 @@ import java.time.format.*;
 public class DateFormatter {
 
     private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.of("America/Sao_Paulo"));
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.of("UTC"));
 
     public static String formatInstant(Instant instant) {
         if (instant == null) return null;
