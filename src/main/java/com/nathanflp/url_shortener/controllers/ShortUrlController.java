@@ -1,10 +1,10 @@
-package com.nathanflp.url_shortener.controller;
+package com.nathanflp.url_shortener.controllers;
 
-import com.nathanflp.url_shortener.domain.model.*;
-import com.nathanflp.url_shortener.dto.mapper.*;
-import com.nathanflp.url_shortener.dto.request.*;
-import com.nathanflp.url_shortener.dto.response.*;
-import com.nathanflp.url_shortener.service.*;
+import com.nathanflp.url_shortener.domains.model.*;
+import com.nathanflp.url_shortener.dtos.request.*;
+import com.nathanflp.url_shortener.dtos.response.*;
+import com.nathanflp.url_shortener.mapper.*;
+import com.nathanflp.url_shortener.services.*;
 import jakarta.servlet.http.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;

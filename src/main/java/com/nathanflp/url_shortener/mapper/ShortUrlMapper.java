@@ -1,7 +1,7 @@
-package com.nathanflp.url_shortener.dto.mapper;
+package com.nathanflp.url_shortener.mapper;
 
-import com.nathanflp.url_shortener.domain.model.*;
-import com.nathanflp.url_shortener.dto.response.*;
+import com.nathanflp.url_shortener.domains.model.*;
+import com.nathanflp.url_shortener.dtos.response.*;
 import com.nathanflp.url_shortener.utils.*;
 
 public class ShortUrlMapper {

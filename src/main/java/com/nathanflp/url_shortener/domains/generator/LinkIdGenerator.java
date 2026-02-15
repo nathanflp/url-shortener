@@ -1,4 +1,4 @@
-package com.nathanflp.url_shortener.domain.generator;
+package com.nathanflp.url_shortener.domains.generator;
 
 public interface LinkIdGenerator {
     String generateShortenUrlId();

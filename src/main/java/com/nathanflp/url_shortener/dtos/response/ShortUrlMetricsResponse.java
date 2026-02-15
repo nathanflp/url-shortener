@@ -1,4 +1,4 @@
-package com.nathanflp.url_shortener.dto.response;
+package com.nathanflp.url_shortener.dtos.response;
 
 public record ShortUrlMetricsResponse(
                               String urlId,

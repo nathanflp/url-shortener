@@ -1,6 +1,4 @@
-package com.nathanflp.url_shortener.dto.response;
-
-import java.time.*;
+package com.nathanflp.url_shortener.dtos.response;
 
 public record ShortUrlResponse(String shortenUrl, String expiresAt) {
 }

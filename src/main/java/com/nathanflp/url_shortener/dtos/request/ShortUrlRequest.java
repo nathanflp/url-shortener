@@ -1,4 +1,4 @@
-package com.nathanflp.url_shortener.dto.request;
+package com.nathanflp.url_shortener.dtos.request;
 
 public record ShortUrlRequest(String originalUrl) {
 }
