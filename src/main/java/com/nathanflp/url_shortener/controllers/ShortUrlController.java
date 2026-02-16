@@ -6,6 +6,7 @@ import com.nathanflp.url_shortener.dtos.response.*;
 import com.nathanflp.url_shortener.mapper.*;
 import com.nathanflp.url_shortener.services.*;
 import jakarta.servlet.http.*;
+import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class ShortUrlController {
     }
 
     @PostMapping(value = "/shorten-url")
-    public ResponseEntity<ShortUrlResponse> shortenUrl(@RequestBody ShortUrlRequest shortUrlRequest, HttpServletRequest servletRequest) {
+    public ResponseEntity<ShortUrlResponse> shortenUrl(@Valid @RequestBody ShortUrlRequest shortUrlRequest, HttpServletRequest servletRequest) {
 
         ShortUrl shortUrlEntity = shortUrlService.shortenUrl(shortUrlRequest);
         String baseUrl = servletRequest.getRequestURL().toString().replace(servletRequest.getRequestURI(), "");
@@ -40,10 +41,6 @@ public class ShortUrlController {
     public ResponseEntity<Void> redirectFromShortenedUrl(@PathVariable("id") String id) {
 
         String originalUrl = shortUrlService.retrieveOriginalUrlFromShortenedUrl(id);
-
-        if (!originalUrl.startsWith("http://") && !originalUrl.startsWith("https://")) {
-            originalUrl = "http://" + originalUrl;
-        }
 
         return ResponseEntity
                 .status(HttpStatus.FOUND)

@@ -3,7 +3,9 @@ package com.nathanflp.url_shortener.exceptions;
 import com.nathanflp.url_shortener.dtos.response.*;
 import com.nathanflp.url_shortener.exceptions.shortUrlExceptions.*;
 import org.springframework.http.*;
+import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.*;
 import org.springframework.web.servlet.mvc.method.annotation.*;
 
 import java.time.*;
@@ -22,5 +24,26 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             DefaultApiExceptionResponse apiResponse = new DefaultApiExceptionResponse(exception.getMessage(), HttpStatus.GONE, Instant.now());
             return ResponseEntity.status(HttpStatus.GONE).body(apiResponse);
         }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+        String errorMessage = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .findFirst()
+                .orElse("Invalid request");
+
+        DefaultApiExceptionResponse apiResponse =
+                new DefaultApiExceptionResponse(
+                        errorMessage,
+                        HttpStatus.BAD_REQUEST,
+                        Instant.now());
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(apiResponse);
+    }
 
 }
