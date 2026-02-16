@@ -7,6 +7,7 @@ import com.nathanflp.url_shortener.exceptions.shortUrlExceptions.*;
 import com.nathanflp.url_shortener.repositories.*;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
@@ -89,4 +90,7 @@ public class ShortUrlService {
         return shortUrlRepository.findById(shortenUrlId).isPresent();
     }
 
+    public Page<ShortUrl> findAllUrlsPaged(Pageable pageable) {
+        return shortUrlRepository.findAll(pageable);
+    }
 }
