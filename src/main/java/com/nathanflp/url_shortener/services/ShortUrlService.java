@@ -35,9 +35,9 @@ public class ShortUrlService {
     }
 
     public ShortUrl shortenUrl(ShortUrlRequest shortUrlRequest) {
-        logger.info("Checking if URL already has a shortened version, URL: {}", shortUrlRequest.originalUrl());
+        logger.info("Checking if URL already has a shortened version, URL: {}", shortUrlRequest.urlToShorten());
 
-        Optional<ShortUrl> existingShortUrl = shortUrlRepository.findByOriginalUrl(shortUrlRequest.originalUrl());
+        Optional<ShortUrl> existingShortUrl = shortUrlRepository.findByOriginalUrl(shortUrlRequest.urlToShorten());
 
         if(existingShortUrl.isPresent() && !existingShortUrl.get().isExpired()){
             logger.info("URL already has a shortened version, returning existing short URL");
@@ -55,7 +55,7 @@ public class ShortUrlService {
         }
         while(doestLinkAlreadyExist(shortenUrlId));
 
-        ShortUrl shortUrl = ShortUrl.createShortUrl(shortenUrlId, shortUrlRequest.originalUrl(), expirationDays);
+        ShortUrl shortUrl = ShortUrl.createShortUrl(shortenUrlId, shortUrlRequest.urlToShorten(), expirationDays);
         shortUrlRepository.save(shortUrl);
 
         logger.info("Short URL created successfully for id: {}", shortenUrlId);
