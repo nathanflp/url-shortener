@@ -3,6 +3,9 @@ package com.nathanflp.url_shortener.mapper;
 import com.nathanflp.url_shortener.domains.model.*;
 import com.nathanflp.url_shortener.dtos.response.*;
 import com.nathanflp.url_shortener.utils.*;
+import org.springframework.data.domain.*;
+
+import java.util.*;
 
 public class ShortUrlMapper {
 
@@ -21,6 +24,22 @@ public class ShortUrlMapper {
                 DateFormatter.formatInstant(shortUrlEntity.getCreatedAt()),
                 DateFormatter.formatInstant(shortUrlEntity.getLastTimeClicked()),
                 DateFormatter.formatInstant(shortUrlEntity.getExpiresAt())
+        );
+    }
+
+    public static ShortUrlPageResponse toPageResponse(Page<ShortUrl> page) {
+        List<ShortUrlResponse> content = page.getContent()
+                .stream()
+                .map(shortUrl ->
+                        ShortUrlMapper.toDefaultResponse(shortUrl.getId(), shortUrl))
+                .toList();
+
+        return new ShortUrlPageResponse(
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages()
         );
     }
 }

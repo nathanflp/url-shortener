@@ -8,6 +8,7 @@ import com.nathanflp.url_shortener.services.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,12 @@ public class ShortUrlController {
         ShortUrl shortUrlEntity = shortUrlService.getShortUrlById(id);
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(ShortUrlMapper.toMetricsResponse(shortUrlEntity));
+    }
+
+    @GetMapping(value = "/rank")
+    public ResponseEntity<ShortUrlPageResponse> findUrlSortedByClickCount(Pageable pageable) {
+        Page<ShortUrl> page = shortUrlService.findAllUrlsPaged(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(ShortUrlMapper.toPageResponse(page));
     }
 
 }
