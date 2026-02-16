@@ -3,12 +3,14 @@ package com.nathanflp.url_shortener.exceptions;
 import com.nathanflp.url_shortener.dtos.response.*;
 import com.nathanflp.url_shortener.exceptions.shortUrlExceptions.*;
 import org.springframework.http.*;
+import org.springframework.validation.*;
 import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.*;
 import org.springframework.web.servlet.mvc.method.annotation.*;
 
 import java.time.*;
+import java.util.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -28,11 +30,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
-        String errorMessage = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                .findFirst()
+        String errorMessage = Optional.ofNullable(
+                ex.getBindingResult()
+                .getFieldError())
+                .map(FieldError::getDefaultMessage)
                 .orElse("Invalid request");
 
         DefaultApiExceptionResponse apiResponse =
