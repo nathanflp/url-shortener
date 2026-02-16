@@ -36,15 +36,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(FieldError::getDefaultMessage)
                 .orElse("Invalid request");
 
-        DefaultApiExceptionResponse apiResponse =
-                new DefaultApiExceptionResponse(
-                        errorMessage,
-                        HttpStatus.BAD_REQUEST,
-                        Instant.now());
+        DefaultApiExceptionResponse apiResponse = new DefaultApiExceptionResponse(errorMessage, HttpStatus.BAD_REQUEST, Instant.now());
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(apiResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }
 
 }
