@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.*;
 
 import java.util.*;
 
-public interface ShortUrlRepository extends JpaRepository<ShortUrl,Integer> {
+public interface ShortUrlRepository extends JpaRepository<ShortUrl,String> {
     Optional<ShortUrl> findById(String shortenUrlId);
     Optional<ShortUrl> findByOriginalUrl(String originalUrl);
     Page<ShortUrl> findAll(Pageable pageable);
