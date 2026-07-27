@@ -1,13 +1,16 @@
-name: CI/CD pipeline
+name: Java Maven Build & Test
 
 on:
+  push:
+    branches: ["main", "master", "develop"]
   pull_request:
-    branches:
-      - master
+    branches: ["main", "master", "develop"]
 
 jobs:
   build-and-test:
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,8 +25,11 @@ jobs:
       - name: Grant permission for Maven Wrapper
         run: chmod +x mvnw
 
-      - name: Run build and tests
-        run: ./mvnw -B -ntp clean verify
+      - name: Build project
+        run: ./mvnw -B -ntp clean package -DskipTests
+
+      - name: Run tests
+        run: ./mvnw -B -ntp test
 
       - name: Upload test reports
         if: always()
