@@ -22,14 +22,11 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      - name: Grant permission for Maven Wrapper
-        run: chmod +x mvnw
-
       - name: Build project
-        run: ./mvnw -B -ntp clean package -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Run tests
-        run: ./mvnw -B -ntp test
+        run: mvn test
 
       - name: Upload test reports
         if: always()
